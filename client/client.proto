@@ -1,37 +1,34 @@
 syntax = "proto3";
 
 enum GlobalFailCode {
-  NONE = 0;
-  UNKNOWN = 1;
-  INVALID_REQUEST = 2;
-  AUTHENTICATION_FAILED = 3;
+    NONE = 0;
+    UNKNOWN = 1;
+    INVALID_REQUEST = 2;
+    AUTHENTICATION_FAILED = 3;
 }
 
 enum UserState {
-  USER_STATE_NONE = 0;
-  STAY = 1;
-  INGAME = 2;
+    STAY = 1;
+    INGAME = 2;
 }
 
 enum GameSessionState {
-  GAME_STATE_NONE = 0;
-  PREPARE = 1;
-  INPROGRESS = 2;
-  END = 3;
+    PREPARE = 1;
+    INPROGRESS = 2;
+    END = 3;
 }
 
 enum CharacterState {
-  CHARACTER_STATE_NONE = 0;
-  IDLE = 1;
-  MOVE = 2;
-  RUN = 3;
-  JUMP = 4;
-  ATTACK = 5;
-  DIED = 6;
-  HIT = 7;
-  COOLDOWN = 8;
-  SHOUT = 9;
-  EXIT = 10;
+    IDLE = 1;
+    MOVE = 2;
+    RUN = 3;
+    JUMP = 4;
+    ATTACK = 5;
+    DIED = 6;
+    HIT = 7;
+    COOLDOWN = 8;
+    SHOUT = 9;
+    EXIT = 10;
 }
 
 enum DoorState {
@@ -94,6 +91,18 @@ message ItemInfo {
   uint32 itemId = 1;
   uint32 itemTypeId = 2;
   Position position = 3;
+}
+
+message ProfileInfo {
+  string userId =1;
+  string nickname = 2;
+  uint32 levelId = 3;
+}
+
+message RoomInfo {
+  string gameSessionId = 1;
+  string roomName = 2;
+  uint32 numberOfPlayer =3;
 }
 
 message C2S_PlayerMoveRequest {
@@ -340,7 +349,6 @@ message S2C_ItemPurchaseResponse {
   GlobalFailCode globalFailCode = 1;
 }
 
-// outgame
 message C2S_RegistAccountRequest {
   string id = 1;
   string password = 2;
@@ -453,7 +461,6 @@ message GamePacket {
     C2S_ItemPurchaseRequest itemPurchaseRequest = 56;
     S2C_ItemPurchaseNotification itemPurchaseNotification = 57;
     S2C_ItemPurchaseResponse itemPurchaseResponse = 58;
-
     C2S_RegistAccountRequest registAccountRequest = 500;
     S2C_RegistAccountResponse registAccountResponse = 501;
     C2S_LoginRequest loginRequest = 502;
