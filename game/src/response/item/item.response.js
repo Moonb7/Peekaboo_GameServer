@@ -49,7 +49,7 @@ export const itemPurchaseResponse = (socket, isPurchaseSuccess) => {
       : GLOBAL_FAIL_CODE.INVALID_REQUEST,
   };
   const packet = serializer(
-    PACKET_TYPE.ItemDiscardResponse,
+    PACKET_TYPE.ItemPurchaseResponse,
     responsePayload,
     socket.sequence++,
   );
