@@ -65,19 +65,35 @@ data = {
 client.sendPacket(PACKET_TYPE.StartStageRequest, data, CLIENTTYPE.GAMECLIENT);
 
 //아이템 획득 요청
+// await delay(1000);
+// let i = 1;
+// while (i < 5) {
+//   console.log(i);
+//   const data = {
+//     itemId: i,
+//     inventorySlot: i,
+//   };
+
+//   client.sendPacket(PACKET_TYPE.ItemGetRequest, data, CLIENTTYPE.GAMECLIENT);
+//   i++;
+//   await delay(50);
+// }
+
+// 문 상호작용 요청
 await delay(1000);
-let i = 1;
-while (i < 5) {
-  console.log(i);
+
+for (let i = 0; i < 50; i++) {
   const data = {
-    itemId: i,
-    inventorySlot: i,
+    doorId: Math.floor(Math.random() * 10) + 1,
+    doorState: Math.floor(Math.random() * 3) + 1,
   };
 
-  client.sendPacket(PACKET_TYPE.ItemGetRequest, data, CLIENTTYPE.GAMECLIENT);
-  i++;
+  client.sendPacket(PACKET_TYPE.DoorToggleRequest, data, CLIENTTYPE.GAMECLIENT);
+
   await delay(50);
 }
+
+console.log(`Door Request Complete`);
 
 // 아이템 사용 요청
 // await delay(4000);

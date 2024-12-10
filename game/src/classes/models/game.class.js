@@ -153,7 +153,7 @@ class Game {
   }
 
   getDoor(doorId) {
-    return this.doors.find((door) => door.id === doorId);
+    return this.doors.find((door) => door.doorId === doorId);
   }
 
   // 평균 레이턴시 구하기

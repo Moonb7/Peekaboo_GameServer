@@ -1,16 +1,54 @@
+export const DOOR_STATE = {
+  DOOR_LEFT: 1,
+  DOOR_MIDDLE: 2,
+  DOOR_RIGHT: 3,
+};
+
 export class Door {
   constructor(doorId) {
     this.doorId = doorId;
-    this.status = false; // true: 열림, false: 닫힘
+    this.status = DOOR_STATE.DOOR_MIDDLE;
   }
 
-  isOpenDoor() {
-    return this.status === true;
+  getStatus() {
+    return this.status;
   }
-  openDoor() {
-    this.status = true;
+
+  checkDoorInteraction(inputDoorState) {
+    switch (inputDoorState) {
+      case DOOR_STATE.DOOR_LEFT:
+        if (this.status !== DOOR_STATE.DOOR_MIDDLE) {
+          return false;
+        }
+        break;
+      case DOOR_STATE.DOOR_MIDDLE:
+        if (this.status === DOOR_STATE.DOOR_MIDDLE) {
+          return false;
+        }
+        break;
+      case DOOR_STATE.DOOR_RIGHT:
+        if (this.status !== DOOR_STATE.DOOR_MIDDLE) {
+          return false;
+        }
+        break;
+    }
+
+    return true;
   }
-  closeDoor() {
-    this.status = false;
+
+  setStatus(doorState) {
+    this.status = doorState;
+  }
+
+  setDoorLeft() {
+    this.status = DOOR_STATE.DOOR_LEFT;
+  }
+
+  setDoorMiddle() {
+    this.status = DOOR_STATE.DOOR_MIDDLE;
+  }
+
+  setDoorRight() {
+    this.status = DOOR_STATE.DOOR_RIGHT;
   }
 }

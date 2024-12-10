@@ -157,7 +157,7 @@ class Client {
 
   // 패킷 처리
   handlePacket = (packetType, payload) => {
-    console.log(packetType, payload);
+    //console.log(packetType, payload);
 
     switch (packetType) {
       case PACKET_TYPE.PlayerMoveNotification:
@@ -175,11 +175,11 @@ class Client {
           const { timestamp } = payload;
           const data = { timestamp };
 
-          this.sendPacket(
-            PACKET_TYPE.PingResponse,
-            data,
-            CLIENTTYPE.GAMECLIENT,
-          );
+          // this.sendPacket(
+          //   PACKET_TYPE.PingResponse,
+          //   data,
+          //   CLIENTTYPE.GAMECLIENT,
+          // );
         }
         break;
       case PACKET_TYPE.PlayerStateChangeNotification:
