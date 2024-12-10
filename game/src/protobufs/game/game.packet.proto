@@ -249,7 +249,6 @@ message S2C_ItemPurchaseResponse {
   GlobalFailCode globalFailCode = 1;
 }
 
-// outgame
 message C2S_RegistAccountRequest {
   string id = 1;
   string password = 2;

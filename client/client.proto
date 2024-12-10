@@ -8,18 +8,17 @@ enum GlobalFailCode {
 }
 
 enum UserState {
-    STAY = 0;
-    INGAME = 1;
+    STAY = 1;
+    INGAME = 2;
 }
 
 enum GameSessionState {
-    PREPARE = 0;
-    INPROGRESS = 1;
-    END = 2;
+    PREPARE = 1;
+    INPROGRESS = 2;
+    END = 3;
 }
 
 enum CharacterState {
-    CHARACTER_STATE_NONE = 0;
     IDLE = 1;
     MOVE = 2;
     RUN = 3;
@@ -92,6 +91,18 @@ message ItemInfo {
   uint32 itemId = 1;
   uint32 itemTypeId = 2;
   Position position = 3;
+}
+
+message ProfileInfo {
+  string userId =1;
+  string nickname = 2;
+  uint32 levelId = 3;
+}
+
+message RoomInfo {
+  string gameSessionId = 1;
+  string roomName = 2;
+  uint32 numberOfPlayer =3;
 }
 
 message C2S_PlayerMoveRequest {

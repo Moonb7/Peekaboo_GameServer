@@ -16,18 +16,9 @@ class DoorQueueManager {
     });
 
     this.queue.process(4, async (job) => {
-      const startTime = Date.now();
+      // const startTime = Date.now();
 
-      const { gameSessionId, userId, doorId, isDoorToggle } = job.data;
-
-      // Lock 예시
-      // const lockKey = `lock:door:${doorId}`;
-      // const lock = await redisManager
-      //   .getClient()
-      //   .set(lockKey, doorId, 'NX', 'PX', 100); //0.3초
-      // if (!lock) {
-      //   return;
-      // }
+      const { gameSessionId, userId, doorId, doorState } = job.data;
 
       // 게임 세션 검증
       const gameSession = getGameSessionById(gameSessionId);
@@ -41,36 +32,35 @@ class DoorQueueManager {
         throw new CustomError(ErrorCodesMaps.DOOR_NOT_FOUND);
       }
 
-      // 현재 문 상태와 문 상호작용 상태 비교 검증
-      // 둘의 상태가 달라야 상호작용이 가능하다.
-      if (isDoorToggle === door.getStatus()) {
-        console.log(
-          `"Fail ${
-            isDoorToggle ? 'Open' : 'Close'
-          }" [${doorId}] Door by User ${userId}`,
-        );
+      const curDoorState = door.getStatus();
+
+      // 현재 문 상태와 문 상호작용이 가능한지 체크
+      if (!door.checkDoorInteraction(doorState)) {
+        // console.log(
+        //   `"Fail ${
+        //     doorState
+        //   }" [${doorId}] Door (${curDoorState} => ${doorState}) by User ${userId}`,
+        // );
         return;
       }
 
-      // 문 상호작용 처리
-      isDoorToggle ? door.openDoor() : door.closeDoor();
+      // 상호작용이 가능하므로 문 상호작용해준다.
+      door.setStatus(doorState);
 
       // 문 상호작용 결과에 대한 Notification
       const payload = {
         doorId,
-        isDoorToggle,
+        doorState,
       };
 
       doorToggleNotification(gameSession, payload);
 
       // doorQueue Log
-      const endTime = Date.now();
-      console.log(
-        `"Success ${
-          isDoorToggle ? 'Open' : 'Close'
-        }" [${doorId}] Door by User ${userId}`,
-      );
-      console.log(`Elapsed Time : ${endTime - startTime}`);
+      // const endTime = Date.now();
+      // console.log(
+      //   `"Success [${doorId}] Door (${curDoorState} => ${doorState}) by User ${userId}`,
+      // );
+      //console.log(`Elapsed Time : ${endTime - startTime}`);
     });
 
     this.queue.on('failed', (job, err) => {
