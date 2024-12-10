@@ -1,4 +1,4 @@
-import { loadGameAssets } from './load.assets.js';
+import { getGameAssets, loadGameAssets } from './load.assets.js';
 import { loadProtos } from './load.protos.js';
 
 const initServer = async () => {

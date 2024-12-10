@@ -26,6 +26,7 @@ import {
 import { ghostSpecialStateRequestHandler } from './game/ghost/ghostSpecialState.handler.js';
 import { ghostSpawnHandler } from './game/ghost/ghostSpawn.handler.js';
 import { itemCreateHandler } from './game/item/itemCreate.handler.js';
+import { itemPurchaseHandler } from './game/store/store.handler.js';
 
 const handlers = {
   [PACKET_TYPE.PlayerMoveRequest]: {
@@ -118,6 +119,11 @@ const handlers = {
     protoType: 'common.GamePacket',
   },
   /*-------------------------문진수 작업--------------------------*/
+  /*-------------------------권영현 작업--------------------------*/
+  [PACKET_TYPE.ItemPurchaseRequest]: {
+    handler: itemPurchaseHandler,
+    protoType: 'common.GamePacket',
+  },
 };
 
 export const getHandlerByPacketType = (packetType) => {
