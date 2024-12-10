@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import '../game/game.packet.proto';
+
 package common;
 
 message GamePacket {
@@ -16,8 +18,6 @@ message GamePacket {
     S2C_GhostStateChangeNotification ghostStateChangeNotification = 10;
     C2S_ItemChangeRequest itemChangeRequest = 11;
     S2C_ItemChangeNotification itemChangeNotification = 12;
-    C2S_LoginRequest loginRequest = 16;
-    S2C_LoginResponse loginResponse = 17;
     C2S_CreateRoomRequest createRoomRequest = 18;
     S2C_CreateRoomResponse createRoomResponse = 19;
     C2S_JoinRoomRequest joinRoomRequest = 20;
@@ -74,3 +74,4 @@ message GamePacket {
     S2C_SearchRoomResponse searchRoomResponse = 511;
   }
 }
+

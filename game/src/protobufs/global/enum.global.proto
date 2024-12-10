@@ -10,14 +10,14 @@ enum GlobalFailCode {
 }
 
 enum UserState {
-    STAY = 0;
-    INGAME = 1;
+    STAY = 1;
+    INGAME = 2;
 }
 
 enum GameSessionState {
-    PREPARE = 0;
-    INPROGRESS = 1;
-    END = 2;
+    PREPARE = 1;
+    INPROGRESS = 2;
+    END = 3;
 }
 
 enum CharacterState {
