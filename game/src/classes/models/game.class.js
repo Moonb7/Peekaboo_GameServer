@@ -37,13 +37,22 @@ class Game {
     this.inviteCode = getInviteCode();
     this.itemQueue = new ItemQueueManager(id);
     this.doorQueue = new DoorQueueManager(id);
+
+    this.initDoors();
+
+    // instantiate();
+  }
+
+  async instantiate() {
+    // 생성시 레디스에 게임 정보 저장
+    await setGameRedis(this.id, this.inviteCode, this.state);
   }
 
   async startGame() {
     const gameAssets = getGameAssets();
 
     // 문 초기화
-    this.initDoors();
+    //this.initDoors();
 
     // 게임 상태 변경
     await this.setState(GAME_SESSION_STATE.INPROGRESS);
