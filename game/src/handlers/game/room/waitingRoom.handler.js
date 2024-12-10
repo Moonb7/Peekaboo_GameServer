@@ -47,7 +47,7 @@ export const startStageRequestHandler = ({ socket, payload }) => {
   }
 };
 
-export const spawnInitialDataResponseHandler = ({ socket, payload }) => {
+export const spawnInitialDataResponseHandler = async ({ socket, payload }) => {
   const { itemInfos } = payload;
 
   const user = getUserById(socket.userId);
@@ -65,5 +65,5 @@ export const spawnInitialDataResponseHandler = ({ socket, payload }) => {
 
   startStageNotification(gameSession, socket.userId, itemInfos);
 
-  gameSession.startGame();
+  await gameSession.startGame();
 };

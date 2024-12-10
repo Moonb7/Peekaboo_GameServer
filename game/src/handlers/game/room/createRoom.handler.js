@@ -22,7 +22,7 @@ export const createRoomHandler = async ({ socket, payload }) => {
   gameSession.addUser(user, true);
 
   // createRoomResponse를 보내준다.
-  sendCreateRoomResponse(socket, gameSession);
+  await sendCreateRoomResponse(socket, gameSession);
 
   console.log(`----------- createRoom Complete : ${user.id} -----------`);
 };

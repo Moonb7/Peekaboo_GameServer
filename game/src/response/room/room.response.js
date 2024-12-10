@@ -1,13 +1,14 @@
 import { config } from '../../config/config.js';
 import { PACKET_TYPE } from '../../constants/header.js';
 import { GLOBAL_FAIL_CODE } from '../../constants/state.js';
+import { setGameRedis } from '../../redis/game.redis.js';
 import { serializer } from '../../utils/packet/create.packet.js';
 
 /**
  * 토큰이 유효하지 않을때 실패 응답 보내주는 함수입니다.
  * @param {*} socket
  */
-export const sendCreateRoomResponse = (socket, game) => {
+export const sendCreateRoomResponse = async (socket, game) => {
   const data = {
     globalFailCode: GLOBAL_FAIL_CODE.NONE,
     message: '방이 성공적으로 생성되었습니다.',
@@ -20,6 +21,8 @@ export const sendCreateRoomResponse = (socket, game) => {
     socket.sequence++,
   ); // sequence도 임시로
   socket.write(responseData);
+
+  await setGameRedis(game.id, game.inviteCode, game.state);
 };
 
 export const sendJoinRoomResponse = (socket, game) => {

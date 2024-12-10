@@ -14,7 +14,7 @@ import { Door } from './door.class.js';
 import { config } from '../../config/config.js';
 import { getGameAssets } from '../../init/load.assets.js';
 import { removeGameSession } from '../../sessions/game.session.js';
-import { setGameRedis, setGameStateRedis } from '../../redis/game.redis.js';
+import { setGameStateRedis } from '../../redis/game.redis.js';
 
 class Game {
   constructor(id) {
@@ -37,23 +37,16 @@ class Game {
     this.inviteCode = getInviteCode();
     this.itemQueue = new ItemQueueManager(id);
     this.doorQueue = new DoorQueueManager(id);
-
-    this.instantiate();
   }
 
-  async instantiate() {
-    // 생성시 레디스에 게임 정보 저장
-    await setGameRedis(this.id, this.inviteCode, this.state);
-  }
-
-  startGame() {
+  async startGame() {
     const gameAssets = getGameAssets();
 
     // 문 초기화
     this.initDoors();
 
     // 게임 상태 변경
-    this.setState(GAME_SESSION_STATE.INPROGRESS);
+    await this.setState(GAME_SESSION_STATE.INPROGRESS);
 
     // 게임 남은 시간 초기화
     this.remainingTime = gameAssets.difficulty.data.find(
@@ -226,7 +219,7 @@ class Game {
   async stageEnd() {
     // 게임 상태를 END로 변경한다.
     // this.state = GAME_SESSION_STATE.END;
-    this.setState(GAME_SESSION_STATE.END);
+    await this.setState(GAME_SESSION_STATE.END);
 
     // TODO : 추후 필요한 로직들은 밑에 추가해준다.
     // ex) 아이템 정리, 귀신 정리, 인벤토리 정리 등등...
@@ -248,7 +241,7 @@ class Game {
     await this.doorQueue.queue.close();
     await this.itemQueue.queue.obliterate({ force: true });
     await this.itemQueue.queue.close();
-    removeGameSession(this.id);
+    await removeGameSession(this.id);
   }
 }
 
