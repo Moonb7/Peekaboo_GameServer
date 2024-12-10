@@ -31,7 +31,7 @@ class Game {
     this.ghostCSpawn = false;
 
     this.goalSoulAmount = 0;
-    this.soulAccumulatedAmount = 0;
+    this.soulAccumulatedAmount = 1000;
     this.ghostIdCount = 1;
 
     this.inviteCode = getInviteCode();

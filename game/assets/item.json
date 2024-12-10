@@ -4,6 +4,7 @@
   "data": [
     {
       "Id": 2101,
+      "Name": "SoulItem1",
       "Value": 15,
       "SpaceValue": 1,
       "EasyMultiple": 1,
@@ -16,6 +17,7 @@
     },
     {
       "Id": 2102,
+      "Name": "SoulItem2",
       "Value": 40,
       "SpaceValue": 1,
       "EasyMultiple": 1,
@@ -28,6 +30,7 @@
     },
     {
       "Id": 2103,
+      "Name": "SoulItem3",
       "Value": 30,
       "SpaceValue": 1,
       "EasyMultiple": 1,
@@ -40,6 +43,7 @@
     },
     {
       "Id": 2104,
+      "Name": "Lantern",
       "Value": 50,
       "SpaceValue": 1,
       "EasyMultiple": 0,
@@ -52,6 +56,7 @@
     },
     {
       "Id": 2105,
+      "Name": "Heart1",
       "Value": 300,
       "SpaceValue": 0,
       "EasyMultiple": 0,
@@ -64,6 +69,7 @@
     },
     {
       "Id": 2106,
+      "Name": "Heart2",
       "Value": 600,
       "SpaceValue": 0,
       "EasyMultiple": 0,

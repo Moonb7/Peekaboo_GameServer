@@ -57,4 +57,7 @@ export const PACKET_MAPS = {
   [PACKET_TYPE.GhostSpawnNotification]: 'ghostSpawnNotification',
   [PACKET_TYPE.ItemGetNotification]: 'itemGetNotification',
   [PACKET_TYPE.RemainingTimeNotification]: 'remainingTimeNotification',
+  [PACKET_TYPE.ItemPurchaseRequest]: 'itemPurchaseRequest',
+  [PACKET_TYPE.ItemPurchaseNotification]: 'itemPurchaseNotification',
+  [PACKET_TYPE.ItemPurchaseResponse]: 'itemPurchaseResponse',
 };

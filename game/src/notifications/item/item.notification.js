@@ -117,3 +117,19 @@ export const itemGetNotification = (gameSession, itemId, userId) => {
     }
   });
 };
+
+export const itemPurchaseNotification = (gameSession, itemInfo) => {
+  const payload = {
+    itemInfo,
+  };
+
+  gameSession.users.forEach((user) => {
+    const packet = serializer(
+      PACKET_TYPE.ItemPurchaseNotification,
+      payload,
+      user.socket.sequence++,
+    );
+
+    user.socket.write(packet);
+  });
+};
