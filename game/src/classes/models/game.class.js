@@ -38,7 +38,7 @@ class Game {
     this.itemQueue = new ItemQueueManager(id);
     this.doorQueue = new DoorQueueManager(id);
 
-    instantiate();
+    this.instantiate();
   }
 
   async instantiate() {
