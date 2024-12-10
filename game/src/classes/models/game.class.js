@@ -14,6 +14,7 @@ import { Door } from './door.class.js';
 import { config } from '../../config/config.js';
 import { getGameAssets } from '../../init/load.assets.js';
 import { removeGameSession } from '../../sessions/game.session.js';
+import { setGameRedis, setGameStateRedis } from '../../redis/game.redis.js';
 
 class Game {
   constructor(id) {
@@ -36,6 +37,13 @@ class Game {
     this.inviteCode = getInviteCode();
     this.itemQueue = new ItemQueueManager(id);
     this.doorQueue = new DoorQueueManager(id);
+
+    instantiate();
+  }
+
+  async instantiate() {
+    // 생성시 레디스에 게임 정보 저장
+    await setGameRedis(this.id, this.inviteCode, this.state);
   }
 
   startGame() {
@@ -45,7 +53,7 @@ class Game {
     this.initDoors();
 
     // 게임 상태 변경
-    this.state = GAME_SESSION_STATE.INPROGRESS;
+    this.setState(GAME_SESSION_STATE.INPROGRESS);
 
     // 게임 남은 시간 초기화
     this.remainingTime = gameAssets.difficulty.data.find(
@@ -158,6 +166,11 @@ class Game {
     return avgLatency;
   }
 
+  async setState(gameState) {
+    this.state = gameState;
+    await setGameStateRedis(this.id, gameState);
+  }
+
   // 게임 모니터링
   // - 접속 중인 모든 클라이언트의 정보를 일정 시간 마다 출력해준다.
   printGameInfo() {
@@ -212,7 +225,8 @@ class Game {
   // 게임 종료 로직
   async stageEnd() {
     // 게임 상태를 END로 변경한다.
-    this.state = GAME_SESSION_STATE.END;
+    // this.state = GAME_SESSION_STATE.END;
+    this.setState(GAME_SESSION_STATE.END);
 
     // TODO : 추후 필요한 로직들은 밑에 추가해준다.
     // ex) 아이템 정리, 귀신 정리, 인벤토리 정리 등등...
