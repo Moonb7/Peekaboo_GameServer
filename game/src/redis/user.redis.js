@@ -7,15 +7,10 @@ import { config } from '../config/config.js';
  * @param {*} gameId
  * @param {*} position
  */
-export const setUserRedis = async (userId, gameId, position = null) => {
+export const setUserRedis = async (userId, gameId) => {
   const key = `${config.redis.user_set}:${userId}`;
 
-  const data = {
-    gameId: gameId,
-    position: JSON.stringify(position),
-  };
-
-  // 유효 시간 구하기 TODO 게임 스테이지 전체 시간 - 진행 시간 = 유효 시간
+  const data = { gameId };
 
   await redisManager.getClient().hset(key, data);
 
@@ -29,30 +24,15 @@ export const setUserRedis = async (userId, gameId, position = null) => {
  * @param {*} feild 원하는 필드 값
  * @returns feild를 추가하지 않으면 기본적으로 유저의 모든 정보를 반환합니다.
  */
-export const getUserRedis = async (userId, feild = null) => {
+export const getUserRedis = async (userId) => {
   const key = `${config.redis.user_set}:${userId}`;
 
-  let data;
-  switch (feild) {
-    case 'gameId':
-      {
-        data = await redisManager.getClient().hget(key, 'gameId');
-      }
-      break;
-    case 'position':
-      {
-        data = await redisManager.getClient().hget(key, 'position');
-        data = JSON.parse(data);
-      }
-      break;
-    default: {
-      data = await redisManager.getClient().hgetall(key);
-      data = {
-        gameId: data.gameId,
-        position: JSON.parse(data.position),
-      };
-    }
-  }
+  const redisData = await redisManager.getClient().hgetall(key);
+
+  const data = {
+    gameId: redisData.gameId,
+  };
+
   return data;
 };
 

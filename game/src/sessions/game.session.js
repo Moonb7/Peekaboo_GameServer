@@ -1,4 +1,5 @@
 import Game from '../classes/models/game.class.js';
+import { removeGameRedis } from '../redis/game.redis.js';
 import { gameSessions } from './sessions.js';
 
 export const addGameSession = (gameId) => {
@@ -12,6 +13,7 @@ export const removeGameSession = (gameId) => {
   if (index !== -1) {
     return gameSessions.splice(index, 1)[0];
   }
+  removeGameRedis(gameId);
 };
 
 export const getGameSessionById = (id) => {

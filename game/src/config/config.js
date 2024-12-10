@@ -20,7 +20,7 @@ import {
   INVITE_CODE_LENGTH,
   MAX_DOOR_NUM,
 } from '../constants/game.js';
-import { REDIS_USER_SET_KEY } from '../constants/redis.js';
+import { REDIS_GAME_SET_KEY, REDIS_USER_SET_KEY } from '../constants/redis.js';
 
 export const config = {
   server: {
@@ -42,6 +42,7 @@ export const config = {
     port: REDIS_PORT,
     password: REDIS_PASSWORD,
     user_set: REDIS_USER_SET_KEY,
+    game_set: REDIS_GAME_SET_KEY,
   },
   game: {
     max_player: MAX_PLAYER,

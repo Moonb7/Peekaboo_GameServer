@@ -15,9 +15,5 @@ export const onError = (socket) => async (err) => {
   removeUser(socket);
 
   // 레디스에 유저 정보 저장
-  await setUserRedis(
-    user.id,
-    user.gameId,
-    user.character.position.getPosition(),
-  );
+  await setUserRedis(user.id, user.gameId);
 };
