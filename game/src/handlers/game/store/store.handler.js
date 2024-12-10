@@ -4,6 +4,10 @@ import { getGameAssets } from '../../../init/load.assets.js';
 import { extractSoulNotification } from '../../../notifications/extractor/extractor.notification.js';
 import { itemPurchaseNotification } from '../../../notifications/item/item.notification.js';
 import { itemPurchaseResponse } from '../../../response/item/item.response.js';
+import { handleError } from '../../../Error/error.handler.js';
+import { getUserById } from '../../../sessions/user.sessions.js';
+import CustomError from '../../../Error/custom.error.js';
+import { getGameSessionById } from '../../../sessions/game.session.js';
 
 export const itemPurchaseHandler = ({ socket, payload }) => {
   try {
@@ -34,15 +38,22 @@ export const itemPurchaseHandler = ({ socket, payload }) => {
 
     // 아이템 가격만큼 골드 차감
     gameSession.soulAccumulatedAmount -= itemInfo.Value;
+    // extractSoulNotification(gameSession, gameSession.soulAccumulatedAmount);
 
-    extractSoulNotification(gameSession, gameSession.soulAccumulatedAmount);
+    console.log(`남은 게임 머니 : ${gameSession.soulAccumulatedAmount}`);
 
     if (itemInfo.SpaceValue === 0) {
       // 아이템의 SpaceValue가 0이면 Heart 아이템으로 응답만
       itemPurchaseResponse(user.socket, true);
+      // TODO : HP 증가했다고 알려주는 Response 필요 =>
     } else {
       // 아이템의 SpaceValue가 1이상이면 랜턴
-      const newItemId = gameSession.items[gameSession.items.length - 1].id + 1;
+      let newItemId;
+      if (gameSession.items.length === 0) {
+        newItemId = 1;
+      } else {
+        newItemId = gameSession.items[gameSession.items.length - 1].id + 1;
+      }
 
       // 상점 근처에 있는 고정된 포지션 상점에서 구입시 바닥에 떨구는 형식으로 하기로 함
       // 임시로 유저 캐릭터 포지션
@@ -57,6 +68,7 @@ export const itemPurchaseHandler = ({ socket, payload }) => {
         itemTypeId: item.typeId,
         position: storePosition,
       };
+
       itemPurchaseNotification(gameSession, itemInfo);
     }
 

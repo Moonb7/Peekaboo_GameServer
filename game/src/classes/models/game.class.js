@@ -38,7 +38,9 @@ class Game {
     this.itemQueue = new ItemQueueManager(id);
     this.doorQueue = new DoorQueueManager(id);
 
-    instantiate();
+    this.initDoors();
+
+    // instantiate();
   }
 
   async instantiate() {
@@ -50,7 +52,7 @@ class Game {
     const gameAssets = getGameAssets();
 
     // 문 초기화
-    this.initDoors();
+    //this.initDoors();
 
     // 게임 상태 변경
     this.setState(GAME_SESSION_STATE.INPROGRESS);
