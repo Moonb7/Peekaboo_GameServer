@@ -38,8 +38,12 @@ class Game {
     this.itemQueue = new ItemQueueManager(id);
     this.doorQueue = new DoorQueueManager(id);
 
+    instantiate();
+  }
+
+  async instantiate() {
     // 생성시 레디스에 게임 정보 저장
-    setGameRedis(this.id, this.inviteCode, this.state);
+    await setGameRedis(this.id, this.inviteCode, this.state);
   }
 
   startGame() {
@@ -162,9 +166,9 @@ class Game {
     return avgLatency;
   }
 
-  setState(gameState) {
+  async setState(gameState) {
     this.state = gameState;
-    setGameStateRedis(this.id, gameState);
+    await setGameStateRedis(this.id, gameState);
   }
 
   // 게임 모니터링

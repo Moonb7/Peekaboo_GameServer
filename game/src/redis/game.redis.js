@@ -29,14 +29,14 @@ export const setGameStateRedis = async (gameId, state) => {
 /**
  * redis에 게임 세션의 정보를 조회하는 함수 입니다.
  * @param {*} gameId
- * @param {*} feildName 이 매개변수를 입력하면 원하는 속성을 조회할 수 있습니다.
+ * @param {*} fieldName 이 매개변수를 입력하면 원하는 속성을 조회할 수 있습니다.
  * @returns
  */
-export const getGameRedis = async (gameId, feildName = null) => {
+export const getGameRedis = async (gameId, fieldName = null) => {
   const key = `${config.redis.game_set}:${gameId}`;
 
   let data;
-  switch (feildName) {
+  switch (fieldName) {
     case 'inviteCode':
       {
         data = await redisManager.getClient().hget(key, 'inviteCode');

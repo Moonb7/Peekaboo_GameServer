@@ -8,12 +8,12 @@ export const addGameSession = (gameId) => {
   return session;
 };
 
-export const removeGameSession = (gameId) => {
+export const removeGameSession = async (gameId) => {
   const index = gameSessions.findIndex((game) => game.id === gameId);
   if (index !== -1) {
     return gameSessions.splice(index, 1)[0];
   }
-  removeGameRedis(gameId);
+  await removeGameRedis(gameId);
 };
 
 export const getGameSessionById = (id) => {
