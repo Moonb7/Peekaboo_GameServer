@@ -7,7 +7,9 @@ export const onEnd = (socket) => async (data) => {
   //console.log('onEnd socket Log---------------------');
   //console.log(socket);
   const gameSession = getGameSessionById(user.gameId);
-  console.log(`${socket.remoteAddress}:${socket.remotePort} User Disconnected`);
+  console.log(
+    `${socket.remoteAddress}:${socket.remotePort} User onEnd Disconnected`,
+  );
 
   // gameSession에서 user를 제외시킨다.
   await gameSession.removeUser(user.id);

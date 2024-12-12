@@ -49,15 +49,9 @@ export const itemDiscardNotification = (gameSession, userId, itemId) => {
   });
 };
 
-export const itemDeleteNotification = (gameSession, itemId) => {
-  const delItem = gameSession.removeItem(itemId);
-  if (delItem === -1) {
-    throw new CustomError(ErrorCodesMaps.ITEM_DETERIORATION);
-  }
-
-  //아이템 위변조가 일어나도 일단은 보내는걸로
+export const itemDeleteNotification = (gameSession, itemIds) => {
   const payload = {
-    itemId,
+    itemIds,
   };
 
   gameSession.users.forEach((user) => {

@@ -5,7 +5,9 @@ import { setUserRedis } from '../redis/user.redis.js';
 export const onError = (socket) => async (err) => {
   const user = getUserBySocket(socket);
   const gameSession = getGameSessionById(user.gameId);
-  console.log(`${socket.remoteAddress}:${socket.remotePort} User Disconnected`);
+  console.log(
+    `${socket.remoteAddress}:${socket.remotePort} User onError Disconnected`,
+  );
   console.log(`Socket Error:  ${err.message}`);
 
   // gameSession에서 user를 제외시킨다.
