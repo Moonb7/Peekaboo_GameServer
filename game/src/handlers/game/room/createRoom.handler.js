@@ -4,25 +4,29 @@ import { addUser } from '../../../sessions/user.sessions.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export const createRoomHandler = async ({ socket, payload }) => {
-  const { userId, token } = payload;
+  try {
+    const { userId, token } = payload;
 
-  // ------------ TODO: token 검증 ---------------
+    // ------------ TODO: token 검증 ---------------
 
-  // 방을 만든 유저를 userSessions에 추가시켜준다.
-  const user = addUser(userId, socket);
-  socket.userId = userId;
+    // 방을 만든 유저를 userSessions에 추가시켜준다.
+    const user = addUser(userId, socket);
+    socket.userId = userId;
 
-  // 게임 생성
-  const gameUUID = uuidv4();
+    // 게임 생성
+    const gameUUID = uuidv4();
 
-  // 게임을 만들고, 게임세션 배열에 추가한다.
-  const gameSession = addGameSession(gameUUID);
-  // 방을 만들고 유저를 참가시킨다.
-  // 그리고 이 유저를 Host로 지정한다.
-  gameSession.addUser(user, true);
+    // 게임을 만들고, 게임세션 배열에 추가한다.
+    const gameSession = addGameSession(gameUUID);
+    // 방을 만들고 유저를 참가시킨다.
+    // 그리고 이 유저를 Host로 지정한다.
+    gameSession.addUser(user, true);
 
-  // createRoomResponse를 보내준다.
-  await sendCreateRoomResponse(socket, gameSession);
+    // createRoomResponse를 보내준다.
+    await sendCreateRoomResponse(socket, gameSession);
 
-  console.log(`----------- createRoom Complete : ${user.id} -----------`);
+    console.log(`----------- createRoom Complete : ${user.id} -----------`);
+  } catch (e) {
+    handleError(e);
+  }
 };

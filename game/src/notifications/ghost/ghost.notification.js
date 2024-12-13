@@ -129,3 +129,19 @@ export const ghostSpawnNotification = (gameSession, ghostInfo) => {
     user.socket.write(packet);
   });
 };
+
+// 귀신 삭제 알림
+export const ghostDeleteNotification = (gameSession, ghostIds) => {
+  const payload = {
+    ghostIds,
+  };
+
+  gameSession.users.forEach((user) => {
+    const packet = serializer(
+      PACKET_TYPE.GhostDeleteNotification,
+      payload,
+      user.socket.sequence++,
+    );
+    user.socket.write(packet);
+  });
+};
