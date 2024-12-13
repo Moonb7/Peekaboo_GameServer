@@ -16,7 +16,6 @@ import {
 import {
   MAX_PLAYER,
   MAX_PLAYER_HP,
-  MAX_GHOST_NUM,
   INVITE_CODE_LENGTH,
   MAX_DOOR_NUM,
 } from '../constants/game.js';
@@ -47,7 +46,6 @@ export const config = {
   game: {
     max_player: MAX_PLAYER,
     max_player_hp: MAX_PLAYER_HP,
-    max_ghost_num: MAX_GHOST_NUM,
     invite_code_length: INVITE_CODE_LENGTH,
     max_door_num: MAX_DOOR_NUM,
   },

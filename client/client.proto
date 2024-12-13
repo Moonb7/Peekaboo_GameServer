@@ -258,6 +258,7 @@ message C2S_ItemPurchaseRequest {
 
 message S2C_ItemPurchaseNotification {
   ItemInfo itemInfo = 1;
+  uint32 soulCredit = 2;
 }
 
 message S2C_ItemPurchaseResponse {

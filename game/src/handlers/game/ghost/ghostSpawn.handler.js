@@ -28,21 +28,16 @@ export const ghostSpawnHandler = ({ socket, payload }) => {
       0,
       gameSession.ghostSpawnPositions.length,
     );
+
     const ghostPosition = gameSession.ghostSpawnPositions.splice(
       positionIndex,
       1,
     );
-    const positions = ghostPosition[0].GhostSpawnPos.split(',').map(
-      (position) => {
-        return Number(position);
-      },
-    );
+
+    console.log(`ghostPosition : ${ghostPosition}`);
+
     const rotation = { x: 0, y: 0, z: 0 };
-    const position = {
-      x: positions[0],
-      y: positions[1],
-      z: positions[2],
-    };
+    const position = ghostPosition[0].getPosition();
 
     const ghost = new Ghost(
       gameSession.ghostIdCount++,

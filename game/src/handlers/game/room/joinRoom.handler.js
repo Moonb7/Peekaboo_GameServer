@@ -37,7 +37,7 @@ export const joinRoomHandler = async ({ socket, payload }) => {
     gameSession.addUser(user);
 
     // 참가한 유저에게 joinRoomResponse를 보내준다.
-    sendJoinRoomResponse(socket, gameSession);
+    sendJoinRoomResponse(socket, gameSession, true);
 
     console.log(`----------- joinRoom Complete : ${user.id} -----------`);
   } catch (e) {

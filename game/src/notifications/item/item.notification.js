@@ -114,9 +114,10 @@ export const itemGetNotification = (gameSession, itemId, userId) => {
   });
 };
 
-export const itemPurchaseNotification = (gameSession, itemInfo) => {
+export const itemPurchaseNotification = (gameSession, itemInfo, soulCredit) => {
   const payload = {
     itemInfo,
+    soulCredit,
   };
 
   gameSession.users.forEach((user) => {

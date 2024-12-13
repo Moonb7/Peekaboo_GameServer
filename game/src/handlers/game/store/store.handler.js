@@ -39,9 +39,6 @@ export const itemPurchaseHandler = ({ socket, payload }) => {
     // 아이템 가격만큼 골드 차감
     gameSession.soulCredit -= itemInfo.Value;
 
-    // 바뀐 soulCredit에 대해  extractSoulNotification을 보낸다.
-    extractSoulNotification(gameSession, gameSession.soulCredit);
-
     console.log(`남은 게임 머니 : ${gameSession.soulCredit}`);
 
     if (itemInfo.SpaceValue === 0) {
@@ -71,7 +68,7 @@ export const itemPurchaseHandler = ({ socket, payload }) => {
         position: storePosition,
       };
 
-      itemPurchaseNotification(gameSession, itemInfo);
+      itemPurchaseNotification(gameSession, itemInfo, gameSession.soulCredit);
     }
   } catch (e) {
     handleError(e);
