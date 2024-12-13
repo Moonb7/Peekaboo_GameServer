@@ -58,12 +58,14 @@ export const PACKET_MAPS = {
   [PACKET_TYPE.ExtractSoulRequest]: 'extractSoulRequest',
   [PACKET_TYPE.ExtractSoulNotification]: 'extractSoulNotification',
   [PACKET_TYPE.DisconnectPlayerNotification]: 'disconnectPlayerNotification',
-  [PACKET_TYPE.BlockInteractionNotification]: 'blockInteractionNotification',
   [PACKET_TYPE.RemainingTimeNotification]: 'remainingTimeNotification',
+  [PACKET_TYPE.BlockInteractionNotification]: 'blockInteractionNotification',
   [PACKET_TYPE.StartStageRequest]: 'startStageRequest',
   [PACKET_TYPE.SpawnInitialDataRequest]: 'spawnInitialDataRequest',
   [PACKET_TYPE.SpawnInitialDataResponse]: 'spawnInitialDataResponse',
   [PACKET_TYPE.StartStageNotification]: 'startStageNotification',
+  [PACKET_TYPE.StageEndNotification]: 'stageEndNotification',
+  [PACKET_TYPE.SubmissionEndNotification]: 'submissionEndNotification',
 
   // 로그인, 로비 : 500번대
   [PACKET_TYPE.RegistAccountRequest]: 'registAccountRequest',

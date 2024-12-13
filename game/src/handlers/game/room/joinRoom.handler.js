@@ -4,6 +4,7 @@ import { addUser, getUserById } from '../../../sessions/user.sessions.js';
 import { getGameSessionByInviteCode } from '../../../sessions/game.session.js';
 import { sendJoinRoomResponse } from '../../../response/room/room.response.js';
 import { joinRoomNotification } from '../../../notifications/room/room.notification.js';
+import { handleError } from '../../../Error/error.handler.js';
 
 export const joinRoomHandler = async ({ socket, payload }) => {
   try {

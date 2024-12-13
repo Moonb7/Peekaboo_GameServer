@@ -1,12 +1,12 @@
 import { PACKET_TYPE } from '../../constants/header.js';
 import { serializer } from '../../utils/packet/create.packet.js';
 
-export const extractSoulNotification = (gameSession, soulAccumulatedAmount) => {
+export const extractSoulNotification = (gameSession, soulCredit) => {
   // 해당 게임 세션에 참여한 유저들에게 notification 보내주기
   gameSession.users.forEach((user) => {
     const responseData = serializer(
       PACKET_TYPE.ExtractSoulNotification,
-      { soulAccumulatedAmount },
+      { soulCredit },
       user.socket.sequence++,
     );
     user.socket.write(responseData);

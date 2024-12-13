@@ -1,3 +1,4 @@
+import { handleError } from '../../../Error/error.handler.js';
 import { sendCreateRoomResponse } from '../../../response/room/room.response.js';
 import { addGameSession } from '../../../sessions/game.session.js';
 import { addUser } from '../../../sessions/user.sessions.js';

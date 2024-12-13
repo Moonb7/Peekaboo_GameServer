@@ -40,12 +40,14 @@ export const itemDiscardNotification = (gameSession, userId, itemId) => {
   };
 
   gameSession.users.forEach((user) => {
-    const packet = serializer(
-      PACKET_TYPE.ItemDiscardNotification,
-      payload,
-      user.socket.sequence++,
-    );
-    user.socket.write(packet);
+    if (userId !== user.id) {
+      const packet = serializer(
+        PACKET_TYPE.ItemDiscardNotification,
+        payload,
+        user.socket.sequence++,
+      );
+      user.socket.write(packet);
+    }
   });
 };
 

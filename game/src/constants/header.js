@@ -65,6 +65,7 @@ export const PACKET_TYPE = {
   SpawnInitialDataResponse: 408,
   StartStageNotification: 409,
   StageEndNotification: 410,
+  SubmissionEndNotification: 411,
 
   // 로그인, 로비 : 500번대
   RegistAccountRequest: 500,

@@ -5,6 +5,7 @@ import { getUserById } from '../../../sessions/user.sessions.js';
 import Ghost from '../../../classes/models/ghost.class.js';
 import { ghostSpawnNotification } from '../../../notifications/ghost/ghost.notification.js';
 import { getRandomInt } from '../../../utils/math/getRandomInt.js';
+import { handleError } from '../../../Error/error.handler.js';
 
 /**
  * 귀신의 특수 상태 요청에 대한 핸들러 함수입니다. (호스트만 요청)
