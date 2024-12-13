@@ -33,13 +33,17 @@ export const extractorSoulHandler = async ({ socket, payload }) => {
     const gameAssets = getGameAssets();
 
     userInventory.forEach((itemId, slot) => {
+      if (!itemId) {
+        console.error(`[${slot}] inventory : empty`);
+        return;
+      }
       const item = gameSession.items.find((item) => item.id === itemId);
       if (!item) {
         console.error(`Extractor : Item Not Exist`);
         return;
       }
 
-      if (!this.spawnSoulItem.includes(item.typeId)) {
+      if (!gameSession.spawnSoulItem.includes(item.typeId)) {
         console.error(`Extractor : Item is Not SoulItem`);
         return;
       }

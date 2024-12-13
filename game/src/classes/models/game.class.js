@@ -18,7 +18,7 @@ import { config } from '../../config/config.js';
 import { getGameAssets } from '../../init/load.assets.js';
 import { removeGameSession } from '../../sessions/game.session.js';
 import { setGameStateRedis } from '../../redis/game.redis.js';
-import { SUBMISSION_DURATION } from '../../constants/game.js';
+import { MAX_PLAYER, SUBMISSION_DURATION } from '../../constants/game.js';
 import { itemDeleteNotification } from '../../notifications/item/item.notification.js';
 import { getRandomInt } from '../../utils/math/getRandomInt.js';
 import Item from './item.class.js';
@@ -87,7 +87,7 @@ class Game {
 
     // 맨 처음 스테이지를 초기화할 때에는 day와 submissionId를 직접 지정해준다.
     if (!this.isInit) {
-      this.day = 1;
+      this.day = SUBMISSION_DURATION;
       const initSubMissionData = gameAssets.submission.data[0];
       this.submissionId = initSubMissionData.Id;
       this.goalSoulCredit = initSubMissionData.SubmissionValue;
@@ -106,7 +106,7 @@ class Game {
     // 문, 아이템, 귀신 초기화
     this.initDoors();
     this.initItems();
-    this.initGhosts();
+    // this.initGhosts();
 
     // 게임 상태를 준비상태로 변경
     this.state = GAME_SESSION_STATE.PREPARE;
@@ -165,6 +165,10 @@ class Game {
   }
 
   async addUser(user, isHost = false) {
+    if (this.users.length >= MAX_PLAYER) {
+      return false;
+    }
+
     if (isHost) {
       this.hostId = user.id;
     }
@@ -181,6 +185,8 @@ class Game {
       1000,
       'user',
     );
+
+    return true;
   }
 
   async removeUser(userId) {
@@ -222,11 +228,13 @@ class Game {
   }
 
   setDifficulty(difficultyId) {
-    this.difficultyId = difficultyId;
+    this.difficultyId = difficultyId + 100;
+
+    console.log(`difficultyId : ${difficultyId}`);
 
     const gameAssets = getGameAssets();
     const difficultyData = gameAssets.difficulty.data.find(
-      (data) => data.Id === difficultyId,
+      (data) => data.Id === this.difficultyId,
     );
     if (!difficultyData) {
       console.error(`Not exist difficulty data`);
@@ -243,13 +251,15 @@ class Game {
       .filter((data) => data.Extraction === 'TRUE')
       .map((data) => data.Id);
     this.itemSpawnPositions = gameAssets.soulItemPos.data.map((data) => {
-      const [x, y, z] = data.split(',').map(Number);
+      const [x, y, z] = data.POS.split(',').map(Number);
       return new Position(x, y, z);
     });
     this.ghostSpawnPositions = gameAssets.ghostSpawnPos.data.map((data) => {
-      const [x, y, z] = data.split(',').map(Number);
+      const [x, y, z] = data.GhostSpawnPos.split(',').map(Number);
       return new Position(x, y, z);
     });
+    console.log(`itemSpawnPositions : ${this.itemSpawnPositions}`);
+    console.log(`ghostSpawnPositions : ${this.ghostSpawnPositions}`);
   }
 
   getUniqueItemId() {

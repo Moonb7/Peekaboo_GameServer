@@ -33,7 +33,7 @@ export const playerStateChangeRequestHandler = async ({ socket, payload }) => {
 
     // 만약 player 한명이라도 탈출했다면 스테이지 종료한다.
     if (user.character.state === CHARACTER_STATE.EXIT) {
-      await gameSession.stageEnd();
+      await gameSession.endStage();
       // if (gameSession.checkStageEnd()) {
       //   // 스테이지 종료 조건이 만족했다면,
 
@@ -105,7 +105,7 @@ export const playerAttackedRequestHandler = async ({ socket, payload }) => {
         }
       }
 
-      await gameSession.stageEnd();
+      await gameSession.endStage();
       // if (gameSession.checkStageEnd()) {
       //   // 스테이지 종료 조건이 만족했다면, 스테이지를 종료시킨다.
 

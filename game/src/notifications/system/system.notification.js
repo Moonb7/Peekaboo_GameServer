@@ -56,7 +56,7 @@ export const remainingTimeNotification = (gameSession) => {
 export const stageEndNotification = (gameSession) => {
   const startPosition = {
     x: -13.17,
-    y: 0,
+    y: 1,
     z: 22.5,
   };
 
