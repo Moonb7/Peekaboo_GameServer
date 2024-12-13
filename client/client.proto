@@ -287,18 +287,18 @@ message C2S_ExtractSoulRequest {
 }
 
 message S2C_ExtractSoulNotification {
-  uint32 soulAccumulatedAmount = 1; 
+  uint32 soulCredit = 1; 
 }
 
 message S2C_DisconnectPlayerNotification {
   string userId = 1;
 }
 
-message S2C_BlockInteractionNotification {
-}
-
 message S2C_RemainingTimeNotification {
   uint32 remainingTime = 1;
+}
+
+message S2C_BlockInteractionNotification {
 }
 
 message C2S_StartStageRequest	{
@@ -324,6 +324,12 @@ message S2C_StartStageNotification {
 
 message S2C_StageEndNotification {
   uint32 remainingDay = 1;
+  Position startPosition = 2;
+}
+
+message S2C_SubmissionEndNotification {
+  bool result = 1;
+  uint32 submissionId = 2;
 }
 
 message C2S_RegistAccountRequest {
@@ -461,13 +467,14 @@ message GamePacket {
     C2S_ExtractSoulRequest extractSoulRequest = 401;
     S2C_ExtractSoulNotification extractSoulNotification = 402;
     S2C_DisconnectPlayerNotification disconnectPlayerNotification = 403;
-    S2C_BlockInteractionNotification blockInteractionNotification = 404;
-    S2C_RemainingTimeNotification remainingTimeNotification = 405;
+    S2C_RemainingTimeNotification remainingTimeNotification = 404;
+    S2C_BlockInteractionNotification blockInteractionNotification = 405;
     C2S_StartStageRequest startStageRequest = 406;
     S2C_SpawnInitialDataRequest spawnInitialDataRequest = 407;
     C2S_SpawnInitialDataResponse spawnInitialDataResponse = 408;
     S2C_StartStageNotification startStageNotification = 409;
     S2C_StageEndNotification stageEndNotification = 410;
+    S2C_SubmissionEndNotification submissionEndNotification = 411;
 
     C2S_RegistAccountRequest registAccountRequest = 500;
     S2C_RegistAccountResponse registAccountResponse = 501;

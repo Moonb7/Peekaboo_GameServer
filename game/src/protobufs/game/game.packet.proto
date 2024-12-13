@@ -183,18 +183,19 @@ message C2S_ExtractSoulRequest {
 }
 
 message S2C_ExtractSoulNotification {
-  uint32 soulAccumulatedAmount = 1; 
+  uint32 soulCredit = 1; 
 }
 
 message S2C_DisconnectPlayerNotification {
   string userId = 1;
 }
 
-message S2C_BlockInteractionNotification {
-}
-
 message S2C_RemainingTimeNotification {
   uint32 remainingTime = 1;
+}
+
+
+message S2C_BlockInteractionNotification {
 }
 
 message C2S_StartStageRequest	{
@@ -220,6 +221,12 @@ message S2C_StartStageNotification {
 
 message S2C_StageEndNotification {
   uint32 remainingDay = 1;
+  Position startPosition = 2;
+}
+
+message S2C_SubmissionEndNotification {
+  bool result = 1;
+  uint32 submissionId = 2;
 }
 
 message C2S_RegistAccountRequest {

@@ -3,6 +3,7 @@ import { PACKET_TYPE } from '../../../constants/header.js';
 import { CHARACTER_STATE } from '../../../constants/state.js';
 import CustomError from '../../../Error/custom.error.js';
 import { ErrorCodesMaps } from '../../../Error/error.codes.js';
+import { handleError } from '../../../Error/error.handler.js';
 import { itemDiscardNotification } from '../../../notifications/item/item.notification.js';
 import { playerStateChangeNotification } from '../../../notifications/player/player.notification.js';
 import { itemDiscardResponse } from '../../../response/item/item.response.js';

@@ -38,10 +38,14 @@ export const blockInteractionNotification = (gameSession) => {
 };
 
 export const remainingTimeNotification = (gameSession) => {
+  const payload = {
+    remainingTime: gameSession.remainingTime,
+  };
+
   gameSession.users.forEach((user) => {
     const packet = serializer(
       PACKET_TYPE.RemainingTimeNotification,
-      { remainingTime: gameSession.remainingTime },
+      payload,
       user.socket.sequence++,
     );
 
@@ -50,10 +54,38 @@ export const remainingTimeNotification = (gameSession) => {
 };
 
 export const stageEndNotification = (gameSession) => {
+  const startPosition = {
+    x: -13.17,
+    y: 0,
+    z: 22.5,
+  };
+
+  const payload = {
+    remainingDay: gameSession.day,
+    startPosition,
+  };
+
   gameSession.users.forEach((user) => {
     const packet = serializer(
       PACKET_TYPE.StageEndNotification,
-      { difficultyId: gameSession.difficultyId },
+      payload,
+      user.socket.sequence++,
+    );
+
+    user.socket.write(packet);
+  });
+};
+
+export const submissionEndNotification = (gameSession, result) => {
+  const payload = {
+    result,
+    submissionId: result ? gameSession.submissionId : 0,
+  };
+
+  gameSession.users.forEach((user) => {
+    const packet = serializer(
+      PACKET_TYPE.SubmissionEndNotification,
+      payload,
       user.socket.sequence++,
     );
 
